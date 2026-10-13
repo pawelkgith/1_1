@@ -13,16 +13,20 @@
 
   const input = document.getElementById("ex2_text");
   const outputContainer = document.getElementById("ex2_content");
-  let output = "";
-  console.log(input);
-  input.addEventListener("change", (event) => {
-    let text = event.target.value;
-    if (text.length !== 9) output = "Długość numeru musi być równa 9";
-    else if (text.match(/^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/))
+  input.addEventListener("input", (event) => {
+    const text = event.target.value;
+    let output;
+    if (text.length !== 9) {
+      output = "Długość numeru musi być równa 9";
+    } else if (/[^\p{L}\p{N}]/u.test(text)) {
       output = "Numer nie może zawierać znaków specjalnych";
-    else if (isNaN(text)) output = "Numer nie może zawierać liter.";
-    else output = "Numer telefonu jest poprawny";
-
-    outputContainer.innerHTML = output;
+    } else if (/\p{L}/u.test(text)) {
+      output = "Numer nie może zawierać liter";
+    } else if (!/^[0-9]{9}$/.test(text)) {
+      output = "Numer musi zawierać wyłącznie cyfry 0–9";
+    } else {
+      output = "Numer telefonu jest poprawny";
+    }
+    outputContainer.textContent = output;
   });
 })();
