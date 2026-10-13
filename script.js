@@ -1,5 +1,6 @@
 (function () {
-  let button = document.getElementById("ex1_button");
+  const button = document.getElementById("ex1_button");
+  const content = document.getElementById("ex1_content");
   let text = "";
   console.log(button);
 
@@ -7,5 +8,6 @@
     for (let i = 0; i <= 9; i++) {
       text += `${i}, `;
     }
+    content.innerHTML = text.toString();
   });
 })();
